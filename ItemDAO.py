@@ -13,7 +13,7 @@ def add_item(item:Item):
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute(
-        "INSERT INTO itens (descricao, quantidade) VALUES (?)",
+        "INSERT INTO itens (descricao, quantidade) VALUES (?, ?)",
         # values tem id, por ser autoincrementador não é necessário indicar
         (item.descricao, item.quantidade)
     )
@@ -23,6 +23,7 @@ def add_item(item:Item):
 def list_all_itens() -> list[Item]:
     # esse List ajuda a definir o tipo de saída esperada
     conn = get_db_connection()
+    conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM itens ORDER BY id ASC")
     rows = cursor.fetchall()
@@ -33,7 +34,7 @@ def list_all_itens() -> list[Item]:
         Item(
             id=row['id'],
             descricao=row['descricao'],
-            quantidade=['quantidade']
+            quantidade=row['quantidade']
         ) for row in rows
     ]
 

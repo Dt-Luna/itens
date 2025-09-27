@@ -1,24 +1,14 @@
 from typing import List
-import streamlit as st 
-
 from model import Item
-import ItemDAO as db
+import ItemDAO
 
 class ItemController:
+    def __init__(self):
+        pass
 
-    @staticmethod
-    @st.cache_data
-    def get_all_itens() -> List[Item]:
-        return db.fetch_all_itens()
+    def criarItem(self, descricao: str, quantidade: int):
+        novo_item = Item(descricao=descricao, quantidade=quantidade)
+        ItemDAO.add_item(novo_item)
 
-    @staticmethod
-    def create_item(nome: str, descricao: str, quantidade: int):
-
-        # 1. Cria um objeto do modelo
-        new_item = Item(nome=nome, descricao=descricao, quantidade=quantidade)
-        
-        # 2. Passa o objeto para camada de acesso a dados
-        db.create_item(new_item)
-        
-        # 3. Limpa o cache para que a lista seja atualizada na próxima leitura
-        st.cache_data.clear()
+    def obterTodosOsItens(self) -> List[Item]:
+        return ItemDAO.list_all_itens()
