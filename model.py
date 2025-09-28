@@ -3,6 +3,6 @@ from typing import Optional
 
 @dataclass
 class Item:
-    descricao: str;
-    quantidade: int;
-    id: Optional[int] = None;
+    id: Optional[int] = None
+    descricao: str = ""
+    quantidade: int = 0
