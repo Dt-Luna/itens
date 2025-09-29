@@ -1,14 +1,14 @@
 from typing import List
 from model import Item
-import ItemDAO
+import ItemDAO as db
 
 class ItemController:
-    def __init__(self):
-        pass
 
-    def criarItem(self, descricao: str, quantidade: int):
+    @staticmethod
+    def criarItem(descricao: str, quantidade: int):
         novo_item = Item(descricao=descricao, quantidade=quantidade)
-        ItemDAO.add_item(novo_item)
+        db.add_item(novo_item)
 
-    def obterTodosOsItens(self) -> List[Item]:
-        return ItemDAO.list_all_itens()
+    @staticmethod
+    def obterTodosOsItens() -> List[Item]:
+        return db.list_all_itens()

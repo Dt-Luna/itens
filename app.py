@@ -13,7 +13,7 @@ if st.button("Cadastrar"):
     if descricao and quantidade > 0:
         controller.criarItem(descricao, int(quantidade))
         st.success("Item cadastrado com sucesso!")
-        st.experimental_rerun()
+        st.rerun()
     else:
         st.error("Preencha todos os campos corretamente.")
 
